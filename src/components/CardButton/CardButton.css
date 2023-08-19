@@ -1,0 +1,25 @@
+.card-button {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  right: 6px;
+  top: 14px;
+  border: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.card-button_movies {
+  background-image: url('../../images/save-movie.svg');
+}
+
+.card-button_movies_active {
+  background-image: url('../../images/unsave-movie.svg');
+}
+
+.card-button_saved-movies {
+  background-image: url('../../images/delete-movie.svg');
+}

@@ -1,0 +1,43 @@
+.header {
+    height: 74px;
+    padding: 18px 70px;
+}
+
+.header_color_white {
+    background-color: #fff;
+}
+
+.header_color_blue {
+    background: #465DFF;
+}
+
+.header__link {
+    cursor: pointer;
+}
+
+.header__logo {
+    display: block;
+}
+
+.header__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+@media (max-width: 1000px) {
+    .header {
+        padding: 18px 30px;
+    }
+
+    .header__navigation {
+        display: none;
+    }
+}
+
+@media (max-width: 580px) {
+    .header {
+        padding: 18px 14px;
+    }
+}

@@ -1,0 +1,151 @@
+.profile {
+    padding-top: 74px;
+    padding-bottom: 70px;
+}
+
+.profile__title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.20;
+    margin: 0 auto 106px auto;
+    text-align: center;
+}
+
+.profile__block {
+    display: flex;
+    justify-content: space-between;
+    padding: 17px 30px 16px;
+    max-width: 470px;
+    margin: 0 auto;
+}
+
+.profile__line {
+    max-width: 410px;
+    margin: 0 auto;
+    height: 1px;
+    background-color: #E8E8E8;
+}
+
+.profile__label {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 1.21;
+}
+
+.profile__input {
+    border: none;
+    height: 14px;
+    background: transparent;
+    color: #000;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.21;
+    width: 50%;
+    text-align: right;
+}
+
+.profile__input:focus {
+    outline: none;
+}
+
+.profile__input::placeholder {
+    color: #000;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.21;
+}
+
+.profile__buttons {
+    margin-top: 204px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile__button {
+    border: none;
+    background: transparent;
+    display: block;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.21;
+    padding: 0;
+}
+
+.profile__button:hover {
+    opacity: 0.7;
+}
+
+.profile__button_disabled {
+    opacity: 0.2;
+    background: transparent;
+    color: #C2C2C2;
+    cursor: not-allowed;
+    border: 1px solid #000;
+}
+
+.profile__button_disabled:hover {
+    opacity: 0.2;
+}
+
+.profile__button_type_save {
+    background-color: #3456F3;
+    width: 100%;
+    padding: 14px 50px;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.profile__button_type_edit {
+    color: #000;
+}
+
+.profile__button_type_exit {
+    color: #FF4062;
+    margin-top: 16px
+}
+
+@media (max-width: 1000px) {
+    .profile {
+        padding-top: 236px;
+        padding-bottom: 269px;
+    }
+
+    .profile__title {
+        margin-bottom: 79px;
+    }
+
+    .profile__buttons {
+        margin-top: 194px;
+    }
+}
+
+@media (max-width: 580px)  {
+    .profile {
+        padding-top: 70px;
+        padding-bottom: 40px;
+    }
+
+    .profile__title {
+        margin-bottom: 63px;
+    }
+
+    .profile__buttons {
+        margin-top: 363px;
+    }
+
+    .profile__label {
+        font-size: 11px;
+    }
+
+    .profile__input {
+        font-size: 11px;
+    }
+
+    .profile__button {
+        font-size: 12px;
+    }
+}
