@@ -26,6 +26,10 @@
     position: relative;
 }
 
+.header__navigation {
+    width: 61%;
+}
+
 @media (max-width: 1000px) {
     .header {
         padding: 18px 30px;

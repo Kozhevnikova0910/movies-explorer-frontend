@@ -13,7 +13,7 @@ export function Login() {
     }
 
     return (
-        <section className="form">
+        <main className="form">
             <div className="form__content">
                 <Link to="/" className="form__link-header">
                     <img className="form__logo" src={logo} alt="Логотип"/>
@@ -68,6 +68,6 @@ export function Login() {
                     </Link>
                 </p>
             </div>
-        </section>
+        </main>
     )
 }

@@ -16,7 +16,7 @@ export function Profile() {
     return (
         <>
             <Header loggedIn={true}/>
-            <section className="profile">
+            <main className="profile">
                 <div className="profile__content">
                     <form className="profile__form" name="form-profile" onSubmit={handleSubmit}>
                         <h3 className="profile__title">Привет, Виталий!</h3>
@@ -52,12 +52,6 @@ export function Profile() {
                             />
                         </div>
                         <div className="profile__buttons">
-                            {/*<button*/}
-                            {/*    key="save"*/}
-                            {/*    className="profile__button profile__button_type_save"*/}
-                            {/*    type="submit">*/}
-                            {/*    Сохранить*/}
-                            {/*</button>*/}
                             <button key="edit" className='profile__button profile__button_type_edit' type="button">
                                 Редактировать
                             </button>
@@ -67,7 +61,7 @@ export function Profile() {
                         </div>
                     </form>
                 </div>
-            </section>
+            </main>
         </>
     )
 }

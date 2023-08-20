@@ -3,6 +3,7 @@ import {Header} from "../Header/Header";
 import {MoviesCardList} from "../MoviesCardList/MoviesCardList";
 import {Preloader} from "../Preloader/Preloader";
 import React from "react";
+import {Footer} from "../Footer/Footer";
 
 export function SavedMovies() {
 
@@ -15,14 +16,17 @@ export function SavedMovies() {
     }, [])
 
     return (
-        <section>
+        <>
             <Header loggedIn={true}/>
-            <SearchForm/>
-            {
-                isLoading
-                    ? <Preloader/>
-                    : <MoviesCardList isInSavedMovies={true}/>
-            }
-        </section>
+            <main>
+                <SearchForm/>
+                {
+                    isLoading
+                        ? <Preloader/>
+                        : <MoviesCardList isInSavedMovies={true}/>
+                }
+            </main>
+            <Footer/>
+        </>
     )
 }

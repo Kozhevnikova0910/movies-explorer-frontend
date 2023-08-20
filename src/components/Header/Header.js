@@ -20,8 +20,8 @@ export function Header({loggedIn}) {
     }
 
     return (
-        <>
-            <header className={`header ${loggedIn ? 'header_color_white' : 'header_color_blue'}`}>
+        <header>
+            <div className={`header ${loggedIn ? 'header_color_white' : 'header_color_blue'}`}>
                 <div className="header__content">
                     <Link to="/" className="header__link">
                         <img className="header__logo" src={logo} alt="Логотип"/>
@@ -35,8 +35,8 @@ export function Header({loggedIn}) {
                         </>
                         : <NavAuth/>}
                 </div>
-            </header>
+            </div>
             {loggedIn && <Menu open={isOpened} onClose={close}/>}
-        </>
+        </header>
     )
 }

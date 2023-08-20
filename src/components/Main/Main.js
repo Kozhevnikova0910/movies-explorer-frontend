@@ -6,18 +6,22 @@ import {Techs} from "../Techs/Techs";
 import {AboutMe} from "../AboutMe/AboutMe";
 import {Portfolio} from "../Portfolio/Portfolio";
 import {Header} from "../Header/Header";
+import {Footer} from "../Footer/Footer";
 
 export function Main() {
 
     return (
-        <main>
+        <>
             <Header loggedIn={false}/>
-            <Promo/>
-            <NavTab/>
-            <AboutProject/>
-            <Techs/>
-            <AboutMe/>
-            <Portfolio/>
-        </main>
+            <main>
+                <Promo/>
+                <NavTab/>
+                <AboutProject/>
+                <Techs/>
+                <AboutMe/>
+                <Portfolio/>
+            </main>
+            <Footer/>
+        </>
     )
 }

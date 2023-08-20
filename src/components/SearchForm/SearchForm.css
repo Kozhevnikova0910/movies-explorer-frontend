@@ -130,11 +130,11 @@
 }
 
 .search__checkbox-input:checked + .search__checkbox-slider {
-    background-color: #EBEBEB;
+    background-color: #2BE080;
 }
 
 .search__checkbox-input:checked + .search__checkbox-slider::before {
-    background-color: #2BE080;
+    background-color: #FFF;
 }
 
 .search__checkbox-input:checked + .search__checkbox-slider::before {
