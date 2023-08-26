@@ -8,3 +8,5 @@
 Рабочий домен - https://https://api.kozhevnikova.diploma.nomoreparties.co
 
 Ссылка на пул-реквест - https://github.com/Kozhevnikova0910/movies-explorer-frontend/pull/2
+
+Ссылка на задеплоенный проект - https://kozhevnikova.diploma.nomoredomainsicu.ru
