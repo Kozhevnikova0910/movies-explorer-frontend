@@ -31,8 +31,10 @@ export function MoviesCard({movie, favoriteMovies, addFavoriteMovie, deleteFavor
     function clickButton() {
         const movieTemp = favoriteMovies.find((item) => item.movieId === movie.id)
         if (isInSavedMovies) {
+            console.log(movie)
             deleteFavoriteMovie(movie._id)
         } else if (movieTemp) {
+            console.log(movieTemp)
             deleteFavoriteMovie(movieTemp._id)
         } else {
             addFavoriteMovie(movie)
