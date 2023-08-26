@@ -8,11 +8,11 @@ import {Portfolio} from "../Portfolio/Portfolio";
 import {Header} from "../Header/Header";
 import {Footer} from "../Footer/Footer";
 
-export function Main() {
+export function Main({ loggedIn }) {
 
     return (
         <>
-            <Header loggedIn={false}/>
+            <Header loggedIn={loggedIn}/>
             <main>
                 <Promo/>
                 <NavTab/>

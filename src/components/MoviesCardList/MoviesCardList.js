@@ -1,85 +1,53 @@
 import './MoviesCardList.css';
 import React from 'react'
 import {MoviesCard} from "../MoviesCard/MoviesCard";
-import movie_test from "../../images/movie_test.jpg"
 
-export function MoviesCardList({isInSavedMovies}) {
+export function MoviesCardList({ movies, favoriteMovies, getFavoriteMovies, addFavoriteMovie, deleteFavoriteMovie, isInSavedMovies }) {
 
-    const [displayedMovies, setDisplayedMovies] = React.useState([
-        {
-            id: 0,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: true,
-        },
-        {
-            id: 1,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: false,
-        },
-        {
-            id: 2,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: false,
-        },
-        {
-            id: 3,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: false,
-        },
-        {
-            id: 4,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: true,
-        },
-        {
-            id: 5,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: false,
-        },
-        {
-            id: 6,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: true,
-        },
-        {
-            id: 7,
-            nameRU: '33 слова о дизайне',
-            duration: '1ч42м',
-            trailerLink: '#',
-            image: movie_test,
-            isSaved: true,
-        },
-    ]);
+    const [displayedMovies, setDisplayedMovies] = React.useState([])
+    const [countMovies, setCountMovies] = React.useState(16);
+    const [extraMovies, setExtraMovies] = React.useState(0);
+
+    React.useEffect(() => {
+        onResize()
+        window.addEventListener("resize", onResize)
+    }, []);
+
+    React.useEffect(() => {
+        setDisplayedMovies(movies)
+    }, [movies, favoriteMovies]);
+
+    function onResize () {
+        const width = window.innerWidth;
+        if (width > 1000){
+            setCountMovies(16)
+            setExtraMovies(4)
+        } else if (width > 580) {
+            setCountMovies(8)
+            setExtraMovies(3)
+        } else {
+            setCountMovies(5)
+            setExtraMovies(2)
+        }
+    }
+
+    function moreMovies () {
+        setCountMovies(countMovies + extraMovies)
+    }
+
 
     return (
         <section className="movies">
                 {displayedMovies.length > 0 ?
                     (<ul className="movies__items">
-                        {displayedMovies.map((movie) => (
-                            <li className="movies__item" key={movie.id}>
+                        {displayedMovies.slice(0, countMovies).map((movie) => (
+                            <li className="movies__item" key={movie.id || movie.movieId}>
                                 <MoviesCard
                                     movie={movie}
+                                    favoriteMovies={favoriteMovies}
+                                    getFavoriteMovies={getFavoriteMovies}
+                                    addFavoriteMovie={addFavoriteMovie}
+                                    deleteFavoriteMovie={deleteFavoriteMovie}
                                     isInSavedMovies={isInSavedMovies}
                                 />
                             </li>
@@ -87,8 +55,8 @@ export function MoviesCardList({isInSavedMovies}) {
                     </ul>)
                     :
                     (<div className="movies__text">Ничего не найдено</div>)}
-                {displayedMovies.length > 0 && (
-                    <button className="movies__button" type="button">Ещё</button>)}
+                {countMovies <= displayedMovies.length && (
+                    <button className="movies__button" type="button" onClick={moreMovies}>Ещё</button>)}
         </section>
     )
 }

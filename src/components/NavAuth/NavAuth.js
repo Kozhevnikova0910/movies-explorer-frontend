@@ -6,10 +6,10 @@ export function NavAuth() {
     <nav className="nav">
       <ul className="nav__items">
         <li className="nav__item"> 
-          <Link className="nav__item-link" to="/signup">Регистрация</Link>
+          <Link className="nav__item-link" to="/sign-up">Регистрация</Link>
         </li>
         <li className="nav__item">
-          <Link className="nav__item-link nav__item-link_button" to="/signin">Войти</Link>
+          <Link className="nav__item-link nav__item-link_button" to="/sign-in">Войти</Link>
         </li>
       </ul>
     </nav>
