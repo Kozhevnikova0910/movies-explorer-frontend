@@ -6,3 +6,5 @@
 -----------------------
 Репозиторий - https://github.com/Kozhevnikova0910/movies-explorer-api
 Рабочий домен - https://https://api.kozhevnikova.diploma.nomoreparties.co
+
+Ссылка на пул-реквест - https://github.com/Kozhevnikova0910/movies-explorer-frontend/pull/2
