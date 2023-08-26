@@ -24,7 +24,7 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
 
     React.useEffect(() => {
         filterMovies()
-    }, [movies, isShorts])
+    }, [movies])
 
     function searchMovies() {
         setIsLoading(true)
@@ -41,9 +41,9 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
     function filterMovies() {
         let filteredMovies = []
         if (isShorts) {
-            filteredMovies = filterMoviesByDuration(movies)
+            filteredMovies = filterMoviesByDuration(movies).slice(0)
         } else {
-            filteredMovies = movies
+            filteredMovies = movies.slice(0)
         }
         filteredMovies = filterMoviesByName(filteredMovies, search)
         setFilteredMovies(filteredMovies)
@@ -65,7 +65,7 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
         const storedSearch = JSON.parse(localStorage.getItem('lastSearch'))
         if (storedSearch) {
             setSearch(storedSearch.search)
-            setMovies(storedSearch.movies)
+            setMovies(storedSearch.movies || [])
             setIsShorts(storedSearch.isShorts)
         }
     }

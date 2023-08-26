@@ -102,7 +102,7 @@ class Api {
 }
 
 const api = new Api({
-    url: 'https://api.kozhevnikova.diploma.nomoreparties.co'
+    url: 'http://api.kozhevnikova.diploma.nomoreparties.co'
 })
 
 export default api

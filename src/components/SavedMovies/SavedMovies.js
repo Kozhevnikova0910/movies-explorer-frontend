@@ -17,12 +17,11 @@ export function SavedMovies({ loggedIn, favoriteMovies, getFavoriteMovies, delet
 
     React.useEffect(() => {
         setMovies(favoriteMovies)
-        setStoredValues()
     }, [favoriteMovies])
 
     React.useEffect(() => {
         filterMovies()
-    }, [favoriteMovies, isShorts])
+    }, [favoriteMovies])
 
     function filterMovies() {
         let filteredMovies = []
@@ -42,15 +41,6 @@ export function SavedMovies({ loggedIn, favoriteMovies, getFavoriteMovies, delet
     function setIsShortsState (value) {
         setIsShorts(value)
         filterMovies(favoriteMovies)
-    }
-
-    function setStoredValues() {
-        const storedSearch = JSON.parse(localStorage.getItem('lastSearch'))
-        if (storedSearch) {
-            setSearch(storedSearch.search)
-            setMovies(storedSearch.movies)
-            setIsShorts(storedSearch.isShorts)
-        }
     }
 
     return (
