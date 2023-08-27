@@ -6,6 +6,7 @@ import './Profile.css';
 export function Profile({values, onValues, errors, errorMessage, onErrorChange, successMessage, onSuccessChange, isValid, onSubmit, onSignOut, isVisible, onVisibleChange, onInputChange, loggedIn}) {
 
     const currentUser = React.useContext(CurrentUserContext);
+    const [profileValid, setProfileValid] = React.useState(false);
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -21,6 +22,14 @@ export function Profile({values, onValues, errors, errorMessage, onErrorChange, 
         onSuccessChange('')
         onVisibleChange(true)
     }
+
+    React.useEffect(() => {
+        if (currentUser.name !== values.name || currentUser.email !== values.email) {
+            setProfileValid(true)
+        } else {
+            setProfileValid(false)
+        }
+    },[currentUser.name, currentUser.email, values.name, values.email])
 
     React.useEffect(() => {
         onValues(currentUser)
@@ -80,9 +89,9 @@ export function Profile({values, onValues, errors, errorMessage, onErrorChange, 
                                 </span>
                                     <button
                                         key="save"
-                                        className={!isValid ? 'profile__button profile__button_type_save profile__button_disabled' : 'profile__button profile__button_type_save'}
+                                        className={!profileValid ? 'profile__button profile__button_type_save profile__button_disabled' : 'profile__button profile__button_type_save'}
                                         type="submit"
-                                        disabled={!isValid}
+                                        disabled={!profileValid && !isValid}
                                     >
                                         Сохранить
                                     </button>

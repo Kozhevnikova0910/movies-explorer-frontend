@@ -32,6 +32,9 @@
   text-decoration: none;
   transition: opacity 0.3s ease-in-out;
   margin: 0 auto;
+  border: 0;
+  background: none;
+  cursor: pointer;
 }
 
 .not-found__button:hover {

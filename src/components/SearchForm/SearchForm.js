@@ -2,16 +2,20 @@ import React from 'react'
 import findButton from '../../images/find.svg'
 import './SearchForm.css';
 
-export function SearchForm({ isShorts, movies, setIsShorts, search, setSearch, filterMovies, error }) {
+export function SearchForm({ isShorts, movies, setIsShorts, search, setSearch, filterMovies, isInSavedMovies }) {
 
-    React.useEffect(() => {
-
-    }, [isShorts, movies])
+    const [error, setError] = React.useState('')
 
     function handleSubmit (e) {
         e.preventDefault()
-        filterMovies()
-        localStorage.setItem('lastSearch', JSON.stringify({search: search, movies: movies, isShorts: isShorts}));
+        if (!search) {
+            setError('Нужно ввести ключевое слово')
+        } else {
+            filterMovies()
+        }
+        if (!isInSavedMovies) {
+            localStorage.setItem('lastSearch', JSON.stringify({search: search, movies: movies, isShorts: isShorts}));
+        }
     }
 
     function handleInputChange (e) {
@@ -33,7 +37,6 @@ export function SearchForm({ isShorts, movies, setIsShorts, search, setSearch, f
                         name="search"
                         value={search}
                         onChange={handleInputChange}
-                        required
                     />
                     <button className="search__button" type="submit">
                         <img className="search__button-image" src={findButton} alt="кнопка поиска"/>

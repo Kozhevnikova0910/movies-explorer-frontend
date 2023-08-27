@@ -14,28 +14,34 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
     const [search, setSearch] = React.useState('');
     const [isShorts, setIsShorts] = React.useState(false);
 
-    const [isLoading, setIsLoading] = React.useState(false)
     const [error, setError] = React.useState('')
 
     React.useEffect(() => {
-        searchMovies()
         setStoredValues()
     }, [])
 
     React.useEffect(() => {
         filterMovies()
-    }, [movies])
+    }, [movies, isShorts])
+
+    React.useEffect(() => {
+        if (filteredMovies.length) {
+            localStorage.setItem('lastSearch', JSON.stringify({
+                search: search,
+                movies: filteredMovies,
+                isShorts: isShorts
+            }));
+        }
+    }, [filteredMovies])
 
     function searchMovies() {
-        setIsLoading(true)
         getMovies()
             .then((res) => {
                 setMovies(res)
             })
-            .catch((err) => {
+            .catch(() => {
                 setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
             })
-        setIsLoading(false)
     }
 
     function filterMovies() {
@@ -74,14 +80,16 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
         <>
             <Header loggedIn={loggedIn}/>
             <main>
-                <SearchForm movies={filteredMovies} isShorts={isShorts} setIsShorts={setIsShortsState} filterMovies={filterMovies} search={search}
+                <SearchForm movies={filteredMovies} isShorts={isShorts} setIsShorts={setIsShortsState}
+                            isInSavedMovies={false} filterMovies={filterMovies} search={search}
                             setSearch={setSearchState} searchMovies={searchMovies} error={error}/>
                 {
-                    isLoading
+                    !movies.length
                         ? <Preloader/>
-                        : <MoviesCardList movies={filteredMovies} favoriteMovies={favoriteMovies} isInSavedMovies={false}
-                                          getFavoriteMovies={getFavoriteMovies} addFavoriteMovie={addFavoriteMovie}
-                                          deleteFavoriteMovie={deleteFavoriteMovie}/>
+                        :
+                        <MoviesCardList movies={filteredMovies} favoriteMovies={favoriteMovies} isInSavedMovies={false}
+                                        getFavoriteMovies={getFavoriteMovies} addFavoriteMovie={addFavoriteMovie}
+                                        deleteFavoriteMovie={deleteFavoriteMovie}/>
                 }
             </main>
             <Footer/>

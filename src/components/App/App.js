@@ -3,6 +3,7 @@ import api from '../../utils/MainApi.js';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext.js';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import {ProtectedRoute} from '../ProtectedRoute/ProtectedRoute';
+import {AuthorizedRoute} from '../AuthorizedRoute/AuthorizedRoute';
 import {Main} from '../Main/Main';
 import {Movies} from '../Movies/Movies';
 import {SavedMovies} from "../SavedMovies/SavedMovies";
@@ -59,6 +60,7 @@ function App() {
                 }
             })
             .catch((err) => {
+
                 setErrorMessage(err)
             })
     }
@@ -69,6 +71,7 @@ function App() {
                 setSuccessMessage('Данные успешно обновлены')
                 setErrorMessage('')
                 setIsVisible(false)
+                setCurrentUser(values)
             })
             .catch((err) => {
                 setErrorMessage(err)
@@ -88,7 +91,10 @@ function App() {
                         })
                     }
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    console.log(err)
+                    signOut()
+                })
         } else {
             setLoggedIn(false);
         }
@@ -141,7 +147,7 @@ function App() {
         const value = e.target.value;
         setValues({...values, [name]: value})
         setErrors({...errors, [name]: e.target.validationMessage});
-        setIsValid(e.target.closest("form").checkValidity());
+        setIsValid(e.target.closest("form").checkValidity())
     }
 
     function resetForm() {
@@ -181,11 +187,15 @@ function App() {
                     <Route path="/" element={<Main loggedIn={loggedIn}/>}/>
 
                     <Route path="/movies" element={
-                        <ProtectedRoute element={Movies} loggedIn={loggedIn} favoriteMovies={favoriteMovies} getFavoriteMovies={getFavoriteMovies} addFavoriteMovie={addFavoriteMovie} deleteFavoriteMovie={deleteFavoriteMovie}/>
+                        <ProtectedRoute element={Movies} loggedIn={loggedIn} favoriteMovies={favoriteMovies}
+                                        getFavoriteMovies={getFavoriteMovies} addFavoriteMovie={addFavoriteMovie}
+                                        deleteFavoriteMovie={deleteFavoriteMovie}/>
                     }/>
 
                     <Route path="/saved-movies" element={
-                        <ProtectedRoute element={SavedMovies} loggedIn={loggedIn} favoriteMovies={favoriteMovies} getFavoriteMovies={getFavoriteMovies} deleteFavoriteMovie={deleteFavoriteMovie}/>
+                        <ProtectedRoute element={SavedMovies} loggedIn={loggedIn} favoriteMovies={favoriteMovies}
+                                        getFavoriteMovies={getFavoriteMovies}
+                                        deleteFavoriteMovie={deleteFavoriteMovie}/>
                     }/>
 
                     <Route path="/profile" element={
@@ -205,20 +215,29 @@ function App() {
                                         onSignOut={signOut}
                                         onInputChange={handleInputChange}/>
                     }/>
-                    <Route path="/sign-in" element={<Login values={values}
-                                                           errors={errors}
-                                                           errorMessage={errorMessage}
-                                                           isValid={isValid}
-                                                           onSubmit={authorization}
-                                                           onInputChange={handleInputChange}/>}
-                    />
-                    <Route path="/sign-up" element={<Register values={values}
-                                                              errors={errors}
-                                                              errorMessage={errorMessage}
-                                                              isValid={isValid}
-                                                              onSubmit={registration}
-                                                              onInputChange={handleInputChange}/>}
-                    />
+
+                    <Route path="/sign-in" element={
+                        <AuthorizedRoute element={Login}
+                                         loggedIn={loggedIn}
+                                         values={values}
+                                         errors={errors}
+                                         errorMessage={errorMessage}
+                                         isValid={isValid}
+                                         onSubmit={authorization}
+                                         onInputChange={handleInputChange}/>
+                    }/>
+
+                    <Route path="/sign-up" element={
+                        <AuthorizedRoute element={Register}
+                                         loggedIn={loggedIn}
+                                         values={values}
+                                         errors={errors}
+                                         errorMessage={errorMessage}
+                                         isValid={isValid}
+                                         onSubmit={registration}
+                                         onInputChange={handleInputChange}/>
+                    }/>
+
                     <Route path="*" element={<PageNotFound/>}/>
                 </Routes>
             </div>

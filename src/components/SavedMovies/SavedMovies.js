@@ -21,7 +21,7 @@ export function SavedMovies({ loggedIn, favoriteMovies, getFavoriteMovies, delet
 
     React.useEffect(() => {
         filterMovies()
-    }, [favoriteMovies])
+    }, [favoriteMovies, isShorts])
 
     function filterMovies() {
         let filteredMovies = []
@@ -40,14 +40,13 @@ export function SavedMovies({ loggedIn, favoriteMovies, getFavoriteMovies, delet
 
     function setIsShortsState (value) {
         setIsShorts(value)
-        filterMovies(favoriteMovies)
     }
 
     return (
         <>
             <Header loggedIn={loggedIn}/>
             <main>
-                <SearchForm isShorts={isShorts} setIsShorts={setIsShortsState} filterMovies={filterMovies} search={search}
+                <SearchForm isShorts={isShorts} setIsShorts={setIsShortsState} isInSavedMovies={true} filterMovies={filterMovies} search={search}
                             setSearch={setSearchState}/>
                 {
                     isLoading
