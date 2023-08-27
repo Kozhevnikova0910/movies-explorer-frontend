@@ -17,6 +17,9 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
     const [error, setError] = React.useState('')
 
     React.useEffect(() => {
+        if (!JSON.parse(localStorage.getItem('movies'))) {
+            searchMovies()
+        }
         setStoredValues()
     }, [])
 
@@ -38,6 +41,7 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
         getMovies()
             .then((res) => {
                 setMovies(res)
+                localStorage.setItem('movies', JSON.stringify(res));
             })
             .catch(() => {
                 setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
