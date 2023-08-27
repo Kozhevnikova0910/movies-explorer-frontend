@@ -17,7 +17,9 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
     const [error, setError] = React.useState('')
 
     React.useEffect(() => {
-        if (!JSON.parse(localStorage.getItem('movies'))) {
+        if (JSON.parse(localStorage.getItem('movies'))) {
+            setMovies(JSON.parse(localStorage.getItem('movies')))
+        } else {
             searchMovies()
         }
         setStoredValues()
