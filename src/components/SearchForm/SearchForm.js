@@ -2,9 +2,12 @@ import React from 'react'
 import findButton from '../../images/find.svg'
 import './SearchForm.css';
 
-export function SearchForm({ isShorts, movies, setIsShorts, search, setSearch, filterMovies, isInSavedMovies }) {
+export function SearchForm({ isShorts, movies, setIsShorts, search, setSearch, filterMovies, isInSavedMovies, searchOrSetMovies, setShowNotFound }) {
 
     const [error, setError] = React.useState('')
+
+    React.useEffect(() => {
+    }, [movies])
 
     function handleSubmit (e) {
         e.preventDefault()
@@ -12,9 +15,12 @@ export function SearchForm({ isShorts, movies, setIsShorts, search, setSearch, f
             setError('Нужно ввести ключевое слово')
         } else {
             filterMovies()
+            setError('')
+            setShowNotFound(true)
         }
-        if (!isInSavedMovies) {
+        if (search && !isInSavedMovies) {
             localStorage.setItem('lastSearch', JSON.stringify({search: search, movies: movies, isShorts: isShorts}));
+            searchOrSetMovies()
         }
     }
 

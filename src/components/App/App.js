@@ -35,7 +35,7 @@ function App() {
 
     React.useEffect(() => {
         getCurrentUser()
-        getFavoriteMovies()
+        if (loggedIn) getFavoriteMovies()
     }, [loggedIn])
 
     function registration() {
@@ -124,8 +124,8 @@ function App() {
             nameRU: movie.nameRU,
             nameEN: movie.nameEN,
         })
-            .then(() => {
-                getFavoriteMovies()
+            .then((res) => {
+                setFavoriteMovies([res, ...favoriteMovies])
             })
             .catch((err) => {
                 setErrorMessage(err)
@@ -135,7 +135,11 @@ function App() {
     function deleteFavoriteMovie(id) {
         api.deleteFavoriteMovie(id)
             .then(() => {
-                getFavoriteMovies()
+                setFavoriteMovies((saveMovies) => {
+                    return saveMovies.filter((item) => {
+                        return item._id !== id;
+                    });
+                });
             })
             .catch((err) => {
                 setErrorMessage(err)
@@ -175,6 +179,7 @@ function App() {
     function signOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('lastSearch');
+        localStorage.removeItem('movies');
         setCurrentUser({});
         setLoggedIn(false);
         navigate('/', {replace: true});

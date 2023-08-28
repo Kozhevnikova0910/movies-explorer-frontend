@@ -14,6 +14,7 @@ export function SavedMovies({ loggedIn, favoriteMovies, getFavoriteMovies, delet
     const [isShorts, setIsShorts] = React.useState(false);
 
     const [isLoading, setIsLoading] = React.useState(false)
+    const [showNotFound, setShowNotFound] = React.useState(false)
 
     React.useEffect(() => {
         setMovies(favoriteMovies)
@@ -47,11 +48,11 @@ export function SavedMovies({ loggedIn, favoriteMovies, getFavoriteMovies, delet
             <Header loggedIn={loggedIn}/>
             <main>
                 <SearchForm isShorts={isShorts} setIsShorts={setIsShortsState} isInSavedMovies={true} filterMovies={filterMovies} search={search}
-                            setSearch={setSearchState}/>
+                            setSearch={setSearchState} setShowNotFound={setShowNotFound}/>
                 {
                     isLoading
                         ? <Preloader/>
-                        : <MoviesCardList movies={filteredMovies} favoriteMovies={favoriteMovies} isInSavedMovies={true} getFavoriteMovies={getFavoriteMovies} deleteFavoriteMovie={deleteFavoriteMovie}/>
+                        : <MoviesCardList movies={filteredMovies} favoriteMovies={favoriteMovies} isInSavedMovies={true} getFavoriteMovies={getFavoriteMovies} deleteFavoriteMovie={deleteFavoriteMovie} showNotFound={showNotFound}/>
                 }
             </main>
             <Footer/>

@@ -10,17 +10,17 @@ import {filterMoviesByName, filterMoviesByDuration} from "../../utils/filter";
 export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavoriteMovie, deleteFavoriteMovie}) {
 
     const [movies, setMovies] = React.useState([])
+    const [isLoading, setIsLoading] = React.useState(false)
     const [filteredMovies, setFilteredMovies] = React.useState([])
     const [search, setSearch] = React.useState('');
     const [isShorts, setIsShorts] = React.useState(false);
+    const [showNotFound, setShowNotFound] = React.useState(false)
 
     const [error, setError] = React.useState('')
 
     React.useEffect(() => {
-        if (JSON.parse(localStorage.getItem('movies'))) {
-            setMovies(JSON.parse(localStorage.getItem('movies')))
-        } else {
-            searchMovies()
+        if (JSON.parse(localStorage.getItem('lastSearch'))) {
+            searchOrSetMovies()
         }
         setStoredValues()
     }, [])
@@ -37,9 +37,10 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
                 isShorts: isShorts
             }));
         }
-    }, [filteredMovies])
+    }, [filteredMovies, isShorts])
 
     function searchMovies() {
+        setIsLoading(true)
         getMovies()
             .then((res) => {
                 setMovies(res)
@@ -47,6 +48,9 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
             })
             .catch(() => {
                 setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+            })
+            .finally(() => {
+                setIsLoading(false)
             })
     }
 
@@ -69,16 +73,20 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
         setIsShorts(value)
     }
 
-    React.useEffect(() => {
-        setStoredValues()
-    }, []);
-
     function setStoredValues() {
         const storedSearch = JSON.parse(localStorage.getItem('lastSearch'))
         if (storedSearch) {
             setSearch(storedSearch.search)
-            setMovies(storedSearch.movies || [])
+            setFilteredMovies(storedSearch.movies)
             setIsShorts(storedSearch.isShorts)
+        }
+    }
+
+    function searchOrSetMovies () {
+        if (JSON.parse(localStorage.getItem('movies'))) {
+            setMovies(JSON.parse(localStorage.getItem('movies')))
+        } else {
+            searchMovies()
         }
     }
 
@@ -88,14 +96,14 @@ export function Movies({loggedIn, favoriteMovies, getFavoriteMovies, addFavorite
             <main>
                 <SearchForm movies={filteredMovies} isShorts={isShorts} setIsShorts={setIsShortsState}
                             isInSavedMovies={false} filterMovies={filterMovies} search={search}
-                            setSearch={setSearchState} searchMovies={searchMovies} error={error}/>
+                            setSearch={setSearchState} searchMovies={searchMovies} error={error} searchOrSetMovies={searchOrSetMovies}  setShowNotFound={setShowNotFound}/>
                 {
-                    !movies.length
+                    isLoading
                         ? <Preloader/>
                         :
                         <MoviesCardList movies={filteredMovies} favoriteMovies={favoriteMovies} isInSavedMovies={false}
                                         getFavoriteMovies={getFavoriteMovies} addFavoriteMovie={addFavoriteMovie}
-                                        deleteFavoriteMovie={deleteFavoriteMovie}/>
+                                        deleteFavoriteMovie={deleteFavoriteMovie} showNotFound={showNotFound}/>
                 }
             </main>
             <Footer/>
